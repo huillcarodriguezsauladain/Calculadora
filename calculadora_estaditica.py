@@ -1,3 +1,5 @@
+import statistics
+
 def calcular_estadisticas(numeros: list[float]) -> dict[str, float]:
     """
     Calcula estadísticas básicas (cantidad, suma, promedio, mínimo y máximo) 
@@ -15,6 +17,7 @@ def calcular_estadisticas(numeros: list[float]) -> dict[str, float]:
             "cantidad": 0,
             "suma": 0.0,
             "promedio": 0.0,
+            "mediana": 0.0,
             "minimo": None,
             "maximo": None
         }
@@ -22,6 +25,7 @@ def calcular_estadisticas(numeros: list[float]) -> dict[str, float]:
     cantidad = len(numeros)
     suma = sum(numeros)
     promedio = suma / cantidad
+    mediana = statistics.median(numeros)
     minimo = min(numeros)
     maximo = max(numeros)
 
@@ -29,6 +33,7 @@ def calcular_estadisticas(numeros: list[float]) -> dict[str, float]:
         "cantidad": cantidad,
         "suma": suma,
         "promedio": promedio,
+        "mediana": mediana,
         "minimo": minimo,
         "maximo": maximo
     }
@@ -54,7 +59,7 @@ def main():
                 # Convertir la cadena de entrada en una lista de floats
                 numeros = [float(x) for x in entrada.split()]
                 
-                # Calcular estadisticas
+                # Calcular estadísticas
                 estadisticas = calcular_estadisticas(numeros)
 
                 # Mostrar resultados
@@ -62,10 +67,11 @@ def main():
                 print(f"Cantidad de números : {estadisticas['cantidad']}")
                 print(f"Suma total          : {estadisticas['suma']}")
                 print(f"Promedio            : {estadisticas['promedio']:.2f}")
+                print(f"Mediana             : {estadisticas['mediana']:.2f}")
                 print(f"Valor mínimo        : {estadisticas['minimo']}")
                 print(f"Valor máximo        : {estadisticas['maximo']}")
             except ValueError:
-                print("Error: Por favor, asegúrate de ingresar solo números validos separados por espacios.")
+                print("Error: Por favor, asegúrate de ingresar solo números válidos separados por espacios.")
 
         continuar = input("\n¿Deseas calcular otra lista? (s/n): ").strip().lower()
         if continuar != 's':
