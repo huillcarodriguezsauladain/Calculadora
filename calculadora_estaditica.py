@@ -39,33 +39,38 @@ def main():
     Función principal que maneja la interacción con el usuario en la consola.
     """
     print("=== Calculadora de Estadísticas Básicas ===")
-    print("Ingresa una lista de números separados por espacios.")
-    print("Ejemplo: 10 5.5 8 20 3")
     
-    entrada = input("\nNúmeros: ").strip()
-    
-    if not entrada:
-        print("Error: No ingresaste ningún número.")
-        return
+    while True:
+        print("\nIngresa una lista de números separados por espacios.")
+        print("Ejemplo: 10 5.5 8 20 3")
+        
+        entrada = input("\nNúmeros: ").strip()
+        
+        if not entrada:
+            print("Error: No ingresaste ningún número.")
+        else:
+            # Procesar la entrada del usuario
+            try:
+                # Convertir la cadena de entrada en una lista de floats
+                numeros = [float(x) for x in entrada.split()]
+                
+                # Calcular estadisticas
+                estadisticas = calcular_estadisticas(numeros)
 
-    # Procesar la entrada del usuario
-    try:
-        # Convertir la cadena de entrada en una lista de floats usando comprensión de listas
-        numeros = [float(x) for x in entrada.split()]
-    except ValueError:
-        print("Error: Por favor, asegúrate de ingresar solo números válidos separados por espacios.")
-        return
+                # Mostrar resultados
+                print("\n--- Resultados ---")
+                print(f"Cantidad de números : {estadisticas['cantidad']}")
+                print(f"Suma total          : {estadisticas['suma']}")
+                print(f"Promedio            : {estadisticas['promedio']:.2f}")
+                print(f"Valor mínimo        : {estadisticas['minimo']}")
+                print(f"Valor máximo        : {estadisticas['maximo']}")
+            except ValueError:
+                print("Error: Por favor, asegúrate de ingresar solo números validos separados por espacios.")
 
-    # Calcular estadísticas
-    estadisticas = calcular_estadisticas(numeros)
-
-    # Mostrar resultados
-    print("\n--- Resultados ---")
-    print(f"Cantidad de números : {estadisticas['cantidad']}")
-    print(f"Suma total          : {estadisticas['suma']}")
-    print(f"Promedio            : {estadisticas['promedio']:.2f}")
-    print(f"Valor mínimo        : {estadisticas['minimo']}")
-    print(f"Valor máximo        : {estadisticas['maximo']}")
+        continuar = input("\n¿Deseas calcular otra lista? (s/n): ").strip().lower()
+        if continuar != 's':
+            print("¡Gracias por usar la calculadora!")
+            break
 
 
 if __name__ == "__main__":
